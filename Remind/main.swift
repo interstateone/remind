@@ -53,10 +53,12 @@ store.requestAccessToEntityType(EKEntityTypeReminder, completion: { (granted, er
                 return reminder1.calendar.title > reminder2.calendar.title
             })
             printReminders(reminders)
+            exit(0)
         })
     }
     else {
         println("Error fetching reminders: \(error.localizedDescription)")
+        exit(1)
     }
 })
 
