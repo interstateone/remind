@@ -68,12 +68,13 @@ extension Argument: Hashable {
 public class Argue: NSObject {
     let usage: String
     let arguments: [Argument]
+    let helpArgument = Argument(fullName: "help", shortName: "h", description: "Show usage instructions", isFlag: true)
+
     public var parsedArguments: [String: String?] = Dictionary()
     public var error: NSError? = nil
+    public var exitOnHelp = true
 
     public init(usage: String, arguments: [Argument]) {
-        let helpArgument = Argument(fullName: "help", shortName: "h", description: "Show usage instructions", isFlag: true)
-
         self.usage = usage
         var args = arguments
         args.append(helpArgument)
@@ -100,6 +101,11 @@ public class Argue: NSObject {
         var generator = argumentStrings.generate()
         while let argumentString = generator.next() {
             if let argument = argumentForArgumentString(argumentString) {
+                if argument == helpArgument && exitOnHelp {
+                    println(usageString())
+                    exit(0)
+                }
+
                 if !argument.isFlag {
                     if let value = generator.next() {
                         parsedArguments[argument.fullName] = value
@@ -133,6 +139,6 @@ public class Argue: NSObject {
 
 extension Argue {
    public subscript(index: String) -> String? {
-        return parsedArguments[index]!
+        return parsedArguments[index]?
     }
 }

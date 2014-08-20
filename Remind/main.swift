@@ -8,21 +8,23 @@
 
 import Foundation
 import EventKit
+import Argue
 
-let defaults = NSUserDefaults.standardUserDefaults()
-let requestedCalendarTitle = defaults.stringForKey("list")
-let reminder = defaults.stringForKey("reminder")
-let completeReminder = defaults.integerForKey("complete")
+let listArgument = Argument(fullName: "list", shortName: "l", description: "Prints only the reminders in this list", isFlag: false)
+let usage = "A little app to quickly deal with reminders."
+let argue = Argue(usage: usage, arguments: [listArgument])
+
+// Ignore the application path
+let arguments = Process.arguments[1..<countElements(Process.arguments)]
+argue.parseArguments(Array(arguments))
 
 let store = EKEventStore()
 
-func filteredCalendars(calendar: String?) -> [EKCalendar] {
+func filteredCalendars(requestedCalendar: String?) -> [EKCalendar] {
     var calendars = store.calendarsForEntityType(EKEntityTypeReminder) as [EKCalendar]
-    if requestedCalendarTitle != nil {
-        calendars = calendars.filter({ (calendar) -> Bool in
-            return calendar.title == requestedCalendarTitle!
-        })
-    }
+    calendars = calendars.filter({ (calendar) -> Bool in
+        return calendar.title == requestedCalendar
+    })
     return calendars
 }
 
@@ -45,7 +47,7 @@ func printReminders(reminders: [EKReminder]) {
 
 store.requestAccessToEntityType(EKEntityTypeReminder, completion: { (granted, error) -> Void in
     if granted && error == nil {
-        let calendars = filteredCalendars(requestedCalendarTitle)
+        let calendars = filteredCalendars(argue["list"])
 
         let reminderPredicate = store.predicateForIncompleteRemindersWithDueDateStarting(nil, ending: nil, calendars: calendars)
         store.fetchRemindersMatchingPredicate(reminderPredicate, completion: { r in
