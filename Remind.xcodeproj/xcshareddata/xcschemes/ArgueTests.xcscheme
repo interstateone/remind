@@ -9,14 +9,14 @@
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CABEBFD619A3111600F4CCFE"
-               BuildableName = "Remind"
-               BlueprintName = "Remind"
+               BlueprintIdentifier = "CAC8008719A3F3350049874E"
+               BuildableName = "ArgueTests.xctest"
+               BlueprintName = "ArgueTests"
                ReferencedContainer = "container:Remind.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -42,37 +42,31 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CABEBFD619A3111600F4CCFE"
-            BuildableName = "Remind"
-            BlueprintName = "Remind"
+            BlueprintIdentifier = "CAC8008719A3F3350049874E"
+            BuildableName = "ArgueTests.xctest"
+            BlueprintName = "ArgueTests"
             ReferencedContainer = "container:Remind.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
    <LaunchAction
-      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      selectedDebuggerIdentifier = ""
+      selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CABEBFD619A3111600F4CCFE"
-            BuildableName = "Remind"
-            BlueprintName = "Remind"
+            BlueprintIdentifier = "CAC8008719A3F3350049874E"
+            BuildableName = "ArgueTests.xctest"
+            BlueprintName = "ArgueTests"
             ReferencedContainer = "container:Remind.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
-      <CommandLineArguments>
-         <CommandLineArgument
-            argument = "-list Reminders --test &quot;Test string value&quot;"
-            isEnabled = "YES">
-         </CommandLineArgument>
-      </CommandLineArguments>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -82,15 +76,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CABEBFD619A3111600F4CCFE"
-            BuildableName = "Remind"
-            BlueprintName = "Remind"
+            BlueprintIdentifier = "CAC8008719A3F3350049874E"
+            BuildableName = "ArgueTests.xctest"
+            BlueprintName = "ArgueTests"
             ReferencedContainer = "container:Remind.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
