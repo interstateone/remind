@@ -13,10 +13,7 @@ import Argue
 let listArgument = Argument(fullName: "list", shortName: "l", description: "Prints only the reminders in this list", isFlag: false)
 let usage = "A little app to quickly deal with reminders."
 let argue = Argue(usage: usage, arguments: [listArgument])
-
-// Ignore the application path
-let arguments = Process.arguments[1..<countElements(Process.arguments)]
-argue.parseArguments(Array(arguments))
+argue.parse()
 
 let store = EKEventStore()
 

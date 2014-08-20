@@ -69,8 +69,8 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "-list Reminders"
-            isEnabled = "NO">
+            argument = "--list Reminders"
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--help"

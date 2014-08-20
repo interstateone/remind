@@ -44,7 +44,15 @@ class ArgueTests: XCTestCase {
         XCTAssert(countElements(argue!.error!.localizedDescription) > 0, "Failed to provide localized error description")
     }
 
+    func testParse() {
+        argue!.parse()
+        XCTAssertEqual(countElements(argue!.parsedArguments), 0, "Incorrect number of arguments parsed")
+        XCTAssert(argue!.parsedArguments["test1"]? == nil, "Error parsing value")
+        XCTAssert(argue!["test2"]? == nil, "Error accessing value with subscript")
+    }
+
     func testHelpArgument() {
+        argue!.exitOnHelp = false
         argue!.parseArguments(["--help"])
         XCTAssert(countElements(argue!.parsedArguments) == 1, "Failed to parse help argument")
     }

@@ -127,6 +127,15 @@ public class Argue: NSObject {
         error = nil
     }
 
+    public func parse() {
+        // Ignore the application path
+        var args = Process.arguments
+        if countElements(args) > 0 {
+            args.removeAtIndex(0)
+        }
+        parseArguments(args)
+    }
+
     private func argumentForArgumentString(argumentString: String) -> Argument? {
         for argument in arguments {
             if argument.matchesArgumentName(argumentString) {
