@@ -21,15 +21,6 @@ class ArgueTests: XCTestCase {
         argue = Argue(usage: usage, arguments:[argument1, argument2])
     }
 
-    func testMatchesArgumentName() {
-        let argument = Argument(fullName: "test", shortName: "t", description: "A test flag", isFlag: true)
-        XCTAssert(argument.matchesArgumentName("") == false)
-        XCTAssert(argument.matchesArgumentName("a") == false)
-        XCTAssert(argument.matchesArgumentName("apple") == false)
-        XCTAssert(argument.matchesArgumentName("-t") == true)
-        XCTAssert(argument.matchesArgumentName("--test") == true)
-    }
-
     func testParseArguments() {
         argue!.parseArguments(["--test1", "TEST", "--test2"])
         XCTAssert(countElements(argue!.parsedArguments) == 2, "Incorrect number of arguments parsed")

@@ -14,6 +14,7 @@
 		CAC8009919A3F51E0049874E /* Argue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAC8007E19A3F3350049874E /* Argue.framework */; };
 		CAC800A319A3F96B0049874E /* Argue.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC800A219A3F96B0049874E /* Argue.swift */; };
 		CAC800AC19A43EE10049874E /* Argument.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC800AB19A43EE10049874E /* Argument.swift */; };
+		CAC800AE19A458450049874E /* ArgumentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC800AD19A458450049874E /* ArgumentTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		CAC8008C19A3F3350049874E /* ArgueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgueTests.swift; sourceTree = "<group>"; };
 		CAC800A219A3F96B0049874E /* Argue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Argue.swift; sourceTree = "<group>"; };
 		CAC800AB19A43EE10049874E /* Argument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Argument.swift; sourceTree = "<group>"; };
+		CAC800AD19A458450049874E /* ArgumentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArgumentTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				CAC8008C19A3F3350049874E /* ArgueTests.swift */,
+				CAC800AD19A458450049874E /* ArgumentTests.swift */,
 				CAC8008A19A3F3350049874E /* Supporting Files */,
 			);
 			path = ArgueTests;
@@ -287,6 +290,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAC800AE19A458450049874E /* ArgumentTests.swift in Sources */,
 				CAC8008D19A3F3350049874E /* ArgueTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
