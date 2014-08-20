@@ -14,8 +14,8 @@ class ArgueTests: XCTestCase {
     var argue: Argue?
 
     override func setUp() {
-        let argument1 = Argument(fullName: "test1", shortName: "t1", description: "A test flag", isFlag: false)
-        let argument2 = Argument(fullName: "test2", shortName: "t2", description: "Another test flag", isFlag: true)
+        let argument1 = Argument(fullName: "test1", shortName: "t1", description: "A string", isFlag: false)
+        let argument2 = Argument(fullName: "test2", shortName: "t2", description: "A test flag", isFlag: true)
 
         let usage = "How to use this program..."
         argue = Argue(usage: usage, arguments:[argument1, argument2])
@@ -42,5 +42,15 @@ class ArgueTests: XCTestCase {
         argue!.parseArguments(["--wrongName"])
         XCTAssert(argue!.error? != nil, "Failed to report error")
         XCTAssert(countElements(argue!.error!.localizedDescription) > 0, "Failed to provide localized error description")
+    }
+
+    func testHelpArgument() {
+        argue!.parseArguments(["--help"])
+        XCTAssert(countElements(argue!.parsedArguments) == 1, "Failed to parse help argument")
+    }
+
+    func testUsageString() {
+        let lineBreaks = argue!.usageString().componentsSeparatedByString("\n").count - 1
+        XCTAssertEqual(lineBreaks, 6, "Failed to print the correct number of lines for usage instructions")
     }
 }

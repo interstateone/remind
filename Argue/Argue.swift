@@ -45,6 +45,10 @@ public struct Argument {
         }
         return false
     }
+
+    public func usageString() -> String {
+        return "--\(fullName)\t(-\(shortName))\t\(description)"
+    }
 }
 
 extension Argument: Equatable {}
@@ -68,17 +72,26 @@ public class Argue: NSObject {
     public var error: NSError? = nil
 
     public init(usage: String, arguments: [Argument]) {
+        let helpArgument = Argument(fullName: "help", shortName: "h", description: "Show usage instructions", isFlag: true)
+
         self.usage = usage
-        self.arguments = arguments
+        var args = arguments
+        args.append(helpArgument)
+        self.arguments = args
         super.init()
     }
 
-    public func printUsage() {
-        println("\(usage)\n")
-        println("Usage:")
+    public func usageString() -> String {
+        var usageString = "\(usage)\n\n"
+        usageString += "Arguments:\n"
         for argument in arguments {
-            println("--\(argument.fullName) (-\(argument.shortName))\t\(argument.description)")
+            usageString += argument.usageString() + "\n"
         }
+        return usageString
+    }
+
+    public func usageStringForArgumentName(argumentName: String) -> String? {
+        return argumentForArgumentString(argumentName)?.usageString()
     }
 
     public func parseArguments(argumentStrings: [String]) {
@@ -123,8 +136,3 @@ extension Argue {
         return parsedArguments[index]!
     }
 }
-
-// behaviour: running command with no arguments should be able to either do whatever it needs to or show help
-// this class is used to print general usage info, usage info for a specific command, or parse argument values
-// if invalid arguments or argument values are passed then it should fail with an error message
-// if everything is valid it should succeed with argument values keyed by Arguments
