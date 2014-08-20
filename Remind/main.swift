@@ -19,6 +19,9 @@ let store = EKEventStore()
 
 func filteredCalendars(requestedCalendar: String?) -> [EKCalendar] {
     var calendars = store.calendarsForEntityType(EKEntityTypeReminder) as [EKCalendar]
+    if requestedCalendar? == nil {
+        return calendars
+    }
     calendars = calendars.filter({ (calendar) -> Bool in
         return calendar.title == requestedCalendar
     })
