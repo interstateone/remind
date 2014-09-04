@@ -12,40 +12,45 @@ import Argue
 
 class ArgueTests: XCTestCase {
     var argue: Argue?
+    var argument1: Argument?
+    var argument2: Argument?
 
     override func setUp() {
-        let argument1 = Argument(fullName: "test1", shortName: "t1", description: "A string", isFlag: false)
-        let argument2 = Argument(fullName: "test2", shortName: "t2", description: "A test flag", isFlag: true)
+        argument1 = Argument(fullName: "test1", shortName: "t1", description: "A string", isFlag: false)
+        argument2 = Argument(fullName: "test2", shortName: "t2", description: "A test flag", isFlag: true)
 
         let usage = "How to use this program..."
-        argue = Argue(usage: usage, arguments:[argument1, argument2])
+        argue = Argue(usage: usage, arguments:[argument1!, argument2!])
     }
 
     func testParseArguments() {
         argue!.parseArguments(["--test1", "TEST", "--test2"])
-        XCTAssert(countElements(argue!.parsedArguments) == 2, "Incorrect number of arguments parsed")
-        XCTAssert(argue!.parsedArguments["test1"]? == "TEST", "Error parsing value")
-        XCTAssert(argue!["test2"]? == nil, "Error accessing value with subscript")
+        XCTAssert(argument1!.value as String == "TEST", "Error parsing value")
+        XCTAssert(argument2!.value as Bool == true, "Error accessing value with subscript")
+    }
 
+    func testParseArgumentsEmpty() {
         argue!.parseArguments([])
-        XCTAssert(countElements(argue!.parsedArguments) == 0, "Incorrect number of arguments parsed")
+        XCTAssert(argument1!.value == nil, "Error parsing value")
+        XCTAssert(argument2!.value == nil, "Error accessing value with subscript")
+    }
 
-        argue!.parseArguments(["--wrongName"])
-        XCTAssert(argue!.error? != nil, "Failed to report error")
-        XCTAssert(countElements(argue!.error!.localizedDescription) > 0, "Failed to provide localized error description")
+    func testParseArgumentsError() {
+        let error = argue!.parseArguments(["--wrongName"])
+        XCTAssert(error? != nil, "Failed to report error")
+        XCTAssert(countElements(error!.localizedDescription) > 0, "Failed to provide localized error description")
     }
 
     func testParse() {
         argue!.parse()
-        XCTAssertEqual(countElements(argue!.parsedArguments), 0, "Incorrect number of arguments parsed")
-        XCTAssert(argue!.parsedArguments["test1"]? == nil, "Error parsing value")
-        XCTAssert(argue!["test2"]? == nil, "Error accessing value with subscript")
+        XCTAssert(argument1!.value == nil, "Error parsing value")
+        XCTAssert(argument2!.value == nil, "Error accessing value with subscript")
     }
 
     func testHelpArgument() {
         argue!.exitOnHelp = false
         argue!.parseArguments(["--help"])
-        XCTAssert(countElements(argue!.parsedArguments) == 1, "Failed to parse help argument")
+        XCTAssert(argue!.helpArgument.value != nil, "Failed to parse help argument")
     }
 
     func testUsageString() {

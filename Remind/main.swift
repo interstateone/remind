@@ -10,14 +10,23 @@ import Foundation
 import EventKit
 import Argue
 
-let listArgument = Argument(fullName: "list", shortName: "l", description: "Prints only the reminders in this list", isFlag: false)
+let listArgument = Argument(fullName: "list", shortName: "l", description: "Prints only the reminders in the given list or creates a new reminder there", isFlag: false)
+let newArgument = Argument(fullName: "new", shortName: "n", description: "Creates a new reminder", isFlag: false)
 let usage = "A little app to quickly deal with reminders."
-let argue = Argue(usage: usage, arguments: [listArgument])
-argue.parse()
+let argue = Argue(usage: usage, arguments: [newArgument, listArgument])
+let error = argue.parse()
+if error != nil {
+    println("Error parsing arguments: \(error?.localizedDescription)")
+    exit(1)
+}
+
+if argue.helpArgument.value != nil {
+    exit(0)
+}
 
 let store = EKEventStore()
 
-func filteredCalendars(requestedCalendar: String?) -> [EKCalendar] {
+func calendarNamed(requestedCalendar: String?) -> [EKCalendar] {
     var calendars = store.calendarsForEntityType(EKEntityTypeReminder) as [EKCalendar]
     if requestedCalendar? == nil {
         return calendars
@@ -47,17 +56,28 @@ func printReminders(reminders: [EKReminder]) {
 
 store.requestAccessToEntityType(EKEntityTypeReminder, completion: { (granted, error) -> Void in
     if granted && error == nil {
-        let calendars = filteredCalendars(argue["list"])
+        let calendars = calendarNamed(listArgument.value as? String)
 
-        let reminderPredicate = store.predicateForIncompleteRemindersWithDueDateStarting(nil, ending: nil, calendars: calendars)
-        store.fetchRemindersMatchingPredicate(reminderPredicate, completion: { r in
-            var reminders = r as [EKReminder]
-            reminders.sort({ (reminder1, reminder2) -> Bool in
-                return reminder1.calendar.title > reminder2.calendar.title
-            })
-            printReminders(reminders)
+        // Create new reminder
+        if let title = newArgument.value as? String {
+            let reminder = EKReminder(eventStore: store)
+            reminder.title = title
+            reminder.calendar = calendars.first
+            store.saveReminder(reminder, commit: true, error: nil)
             exit(0)
-        })
+        }
+        // Print reminders
+        else {
+            let reminderPredicate = store.predicateForIncompleteRemindersWithDueDateStarting(nil, ending: nil, calendars: calendars)
+            store.fetchRemindersMatchingPredicate(reminderPredicate, completion: { r in
+                var reminders = r as [EKReminder]
+                reminders.sort({ (reminder1, reminder2) -> Bool in
+                    return reminder1.calendar.title > reminder2.calendar.title
+                })
+                printReminders(reminders)
+                exit(0)
+            })
+        }
     }
     else {
         println("Error fetching reminders: \(error.localizedDescription)")

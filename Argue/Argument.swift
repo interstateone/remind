@@ -6,11 +6,13 @@
 //  Copyright (c) 2014 Brandon Evans. All rights reserved.
 //
 
-public struct Argument {
+public class Argument {
     let fullName: String
     let shortName: String
     let description: String
     let isFlag: Bool
+    public private(set) var value: AnyObject?
+    private var hasRealized: Bool = false
 
     public init(fullName: String, shortName: String, description: String, isFlag: Bool) {
         self.fullName = fullName
@@ -35,6 +37,14 @@ public struct Argument {
 
     public func usageString() -> String {
         return "--\(fullName)\t(-\(shortName))\t\(description)"
+    }
+
+    func realize(argumentValue: AnyObject?) {
+        if hasRealized {
+            return
+        }
+        hasRealized = true
+        value = argumentValue
     }
 }
 
