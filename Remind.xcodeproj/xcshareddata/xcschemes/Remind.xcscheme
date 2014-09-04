@@ -73,6 +73,14 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
+            argument = "--new &quot;Test Reminder&quot; --list Reminders"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-n &quot;Shrt Tst Rmndr&quot;"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "--help"
             isEnabled = "NO">
          </CommandLineArgument>
