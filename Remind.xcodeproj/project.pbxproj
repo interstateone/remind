@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CA105FA319C3E1460090BE4A /* Argue.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA105FA119C3E1460090BE4A /* Argue.swift */; };
 		CA105FA419C3E1460090BE4A /* Argument.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA105FA219C3E1460090BE4A /* Argument.swift */; };
+		CA5A7E2519EE1F6E00014A7F /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5A7E2419EE1F6E00014A7F /* Token.swift */; };
 		CABEBFDB19A3111600F4CCFE /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABEBFDA19A3111600F4CCFE /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +28,7 @@
 /* Begin PBXFileReference section */
 		CA105FA119C3E1460090BE4A /* Argue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Argue.swift; path = Argue/Argue/Argue.swift; sourceTree = SOURCE_ROOT; };
 		CA105FA219C3E1460090BE4A /* Argument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Argument.swift; path = Argue/Argue/Argument.swift; sourceTree = SOURCE_ROOT; };
+		CA5A7E2419EE1F6E00014A7F /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Token.swift; path = Argue/Argue/Token.swift; sourceTree = SOURCE_ROOT; };
 		CABEBFD719A3111600F4CCFE /* Remind */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Remind; sourceTree = BUILT_PRODUCTS_DIR; };
 		CABEBFDA19A3111600F4CCFE /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -64,6 +66,7 @@
 				CABEBFDA19A3111600F4CCFE /* main.swift */,
 				CA105FA119C3E1460090BE4A /* Argue.swift */,
 				CA105FA219C3E1460090BE4A /* Argument.swift */,
+				CA5A7E2419EE1F6E00014A7F /* Token.swift */,
 			);
 			path = Remind;
 			sourceTree = "<group>";
@@ -127,6 +130,7 @@
 				CA105FA319C3E1460090BE4A /* Argue.swift in Sources */,
 				CA105FA419C3E1460090BE4A /* Argument.swift in Sources */,
 				CABEBFDB19A3111600F4CCFE /* main.swift in Sources */,
+				CA5A7E2519EE1F6E00014A7F /* Token.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
