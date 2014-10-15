@@ -9,17 +9,18 @@
 import Foundation
 import EventKit
 
-let listArgument = Argument(fullName: "list", shortName: "l", description: "Prints only the reminders in the given list or creates a new reminder there", isFlag: false)
-let newArgument = Argument(fullName: "new", shortName: "n", description: "Creates a new reminder", isFlag: false)
+let listArgument = Argument(type: .Option, fullName: "list", shortName: "l", description: "Prints only the reminders in the given list or creates a new reminder there")
+let newArgument = Argument(type: .Option, fullName: "new", shortName: "n", description: "Creates a new reminder")
 let usage = "A little app to quickly deal with reminders."
 let argue = Argue(usage: usage, arguments: [newArgument, listArgument])
-let error = argue.parse()
-if error != nil {
-    println("Error parsing arguments: \(error?.localizedDescription)")
+
+if let error = argue.parse() {
+    println("Error parsing arguments: \(error.localizedDescription)")
     exit(1)
 }
 
 if argue.helpArgument.value != nil {
+    println(argue.description)
     exit(0)
 }
 

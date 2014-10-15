@@ -70,7 +70,7 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "--list Reminders"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--new &quot;Test Reminder&quot; --list Reminders"
@@ -78,7 +78,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-n &quot;Shrt Tst Rmndr&quot;"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--help"
