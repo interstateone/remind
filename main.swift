@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Argue
 import EventKit
 
 let listArgument = Argument(type: .value, fullName: "list", shortName: "l", description: "Prints only the reminders in the given list or creates a new reminder there")
