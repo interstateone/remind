@@ -10,9 +10,10 @@ import Foundation
 import EventKit
 
 let listArgument = Argument(type: .value, fullName: "list", shortName: "l", description: "Prints only the reminders in the given list or creates a new reminder there")
+let allArgument = Argument(type: .flag, fullName: "all", shortName: "a", description: "Prints the reminders in all of the lists")
 let newArgument = Argument(type: .value, fullName: "new", shortName: "n", description: "Creates a new reminder")
 let usage = "A little app to quickly deal with reminders."
-let argue = Argue(usage: usage, arguments: [newArgument, listArgument])
+let argue = Argue(usage: usage, arguments: [newArgument, allArgument, listArgument])
 
 do {
     try argue.parse()
@@ -71,7 +72,7 @@ store.requestAccess(to: .reminder, completion: { (granted, error) -> Void in
     }
 
     let specifiedCalendar: EKCalendar?
-    if let calendarName = listArgument.value as? String {
+    if let calendarName = listArgument.value as? String, allArgument.value == nil {
         specifiedCalendar = calendar(named: calendarName, in: calendars)
     }
     else {
