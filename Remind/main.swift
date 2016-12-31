@@ -11,9 +11,10 @@ import EventKit
 
 let listArgument = Argument(type: .value, fullName: "list", shortName: "l", description: "Prints only the reminders in the given list or creates a new reminder there")
 let allArgument = Argument(type: .flag, fullName: "all", shortName: "a", description: "Prints the reminders in all of the lists")
+let completeArgument = Argument(type: .value, fullName: "complete", shortName: "c", description: "Completes a reminder at the given index")
 let newArgument = Argument(type: .value, fullName: "new", shortName: "n", description: "Creates a new reminder")
 let usage = "A little app to quickly deal with reminders."
-let argue = Argue(usage: usage, arguments: [newArgument, allArgument, listArgument])
+let argue = Argue(usage: usage, arguments: [newArgument, allArgument, completeArgument, listArgument])
 
 do {
     try argue.parse()
@@ -79,6 +80,14 @@ store.requestAccess(to: .reminder, completion: { (granted, error) -> Void in
         specifiedCalendar = nil
     }
 
+    let specifiedCalendars: [EKCalendar]
+    if let specifiedCalendar = specifiedCalendar {
+        specifiedCalendars = [specifiedCalendar]
+    }
+    else {
+        specifiedCalendars = calendars
+    }
+
     // Create new reminder
     if let title = newArgument.value as? String {
         let reminder = EKReminder(eventStore: store)
@@ -95,15 +104,34 @@ store.requestAccess(to: .reminder, completion: { (granted, error) -> Void in
 
         exit(0)
     }
+    // Complete a reminder
+    else if let indexString = completeArgument.value as? String, let userIndex = Int(indexString) {
+        let reminderPredicate = store.predicateForIncompleteReminders(withDueDateStarting: nil, ending: nil, calendars: specifiedCalendars)
+        store.fetchReminders(matching: reminderPredicate, completion: { reminders in
+            let sortedReminders = reminders?.sorted { $0.calendar.title > $1.calendar.title } ?? []
+            let index = userIndex - 1
+            guard index >= 0, index < sortedReminders.count else {
+                print("Index \(userIndex) doesn't correspond to a reminder in \(specifiedCalendars.map { $0.title }.joined(separator: ", "))")
+                exit(1)
+            }
+
+            let reminder = sortedReminders[index]
+            reminder.isCompleted = true
+
+            do {
+                try store.save(reminder, commit: true)
+            }
+            catch {
+                print(error)
+                exit(1)
+            }
+
+            print("Completed: \(reminder.title)")
+            exit(0)
+        })
+    }
     // Print reminders
     else {
-        let specifiedCalendars: [EKCalendar]
-        if let specifiedCalendar = specifiedCalendar {
-            specifiedCalendars = [specifiedCalendar]
-        }
-        else {
-            specifiedCalendars = calendars
-        }
         let reminderPredicate = store.predicateForIncompleteReminders(withDueDateStarting: nil, ending: nil, calendars: specifiedCalendars)
         store.fetchReminders(matching: reminderPredicate, completion: { reminders in
             let sortedReminders = reminders?.sorted { $0.calendar.title > $1.calendar.title } ?? []
