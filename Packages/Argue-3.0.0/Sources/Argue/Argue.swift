@@ -42,7 +42,7 @@ public class Argue: CustomStringConvertible {
             guard
                 let firstToken = tokenGroup.first,
                 let argument = argumentForToken(firstToken)
-            else { throw NSError(domain: "ca.brandonevans.Argue", code: 100, userInfo: [NSLocalizedDescriptionKey: "Unknown argument: \(tokenGroup.first?.unwrap())"]) }
+            else { throw ArgueError.unexpectedArgument(tokenGroup.first?.unwrap() ?? "") }
 
             switch argument.type {
             case .flag:
@@ -71,20 +71,6 @@ public class Argue: CustomStringConvertible {
     }
 
     /**
-    Convenience function for what parseArguments will almost always be used for
-
-    :returns: An error if there was an issue parsing an argument
-    */
-    public func parse() throws {
-        // Ignore the application path
-        var args = CommandLine.arguments
-        if args.count > 0 {
-            args.remove(at: 0)
-        }
-        try parseArguments(args)
-    }
-
-    /**
     Finds the argument, if there is one, that matches a given input string
 
     :param: argumentString The input string
@@ -93,5 +79,15 @@ public class Argue: CustomStringConvertible {
     */
     private func argumentForToken(_ token: Token) -> Argument? {
         return arguments.filter({ $0.matchesToken(token) }).first
+    }
+}
+
+public enum ArgueError: Error {
+    case unexpectedArgument(String)
+
+    var localizedDescription: String {
+        switch self {
+        case .unexpectedArgument(let argument): return "Unexpected argument: \(argument)"
+        }
     }
 }

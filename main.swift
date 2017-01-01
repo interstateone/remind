@@ -19,7 +19,7 @@ let usage = "A little app to quickly deal with reminders."
 let argue = Argue(usage: usage, arguments: [newArgument, allArgument, completeArgument, deleteArgument, listArgument])
 
 do {
-    try argue.parse()
+    try argue.parseArguments(Array(CommandLine.arguments.dropFirst()))
 }
 catch {
     print("Error parsing arguments: \(error.localizedDescription)")
