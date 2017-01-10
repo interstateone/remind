@@ -54,7 +54,7 @@ func description(for reminders: [EKReminder]) -> String {
             let boldCode = "1"
             let redCode = "31"
             let whiteCode = "37"
-            let styleCode = Calendar.current.isDateInToday(date) ? boldCode : normalCode
+            let styleCode = Calendar.current.isDateInToday(date) || Date().compare(date) == .orderedDescending ? boldCode : normalCode
             description += " \u{001B}[\(styleCode);\(redCode)m(due \(ShortDateFormatter.string(from: date)))\u{001B}[\(normalCode);\(whiteCode)m"
         }
 
