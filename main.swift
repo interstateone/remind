@@ -48,7 +48,14 @@ func description(for reminders: [EKReminder]) -> String {
         var description = "#\(reminder.offset + 1)\t\(reminder.element.calendar.title): \(reminder.element.title)"
 
         if let components = reminder.element.dueDateComponents, let date = Calendar.current.date(from: components) {
-            description += " (due \(ShortDateFormatter.string(from: date)))"
+            // ANSI color codes
+            // \u{001B}[\(style);\(color)m
+            let normalCode = "0"
+            let boldCode = "1"
+            let redCode = "31"
+            let whiteCode = "37"
+            let styleCode = Calendar.current.isDateInToday(date) ? boldCode : normalCode
+            description += " \u{001B}[\(styleCode);\(redCode)m(due \(ShortDateFormatter.string(from: date)))\u{001B}[\(normalCode);\(whiteCode)m"
         }
 
         return result + description + "\n"
