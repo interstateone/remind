@@ -11,6 +11,10 @@ Remind also makes use of [Argue](https://github.com/interstateone/Argue), a real
 
 ## Installation
 
+### Homebrew
+
+`brew install interstateone/formulae/remind`
+
 ### Releases
 
 Download the latest binary [release](https://github.com/interstateone/Remind/releases) and move it to your preferred location.
