@@ -11,10 +11,17 @@ Remind also makes use of [Argue](https://github.com/interstateone/Argue), a real
 
 ## Installation
 
-You've got two options:
+### Releases
 
-- Download the latest binary [release](https://github.com/interstateone/Remind/releases) and move it into your `$PATH`.
-- Download the source, run `swift build -c release` and copy `./.build/release/remind` to your `$PATH`.
+Download the latest binary [release](https://github.com/interstateone/Remind/releases) and move it to your preferred location.
+
+### Manually
+
+```sh
+git clone https://github.com/interstateone/Remind
+cd Remind
+make install
+```
 
 ## License
 
