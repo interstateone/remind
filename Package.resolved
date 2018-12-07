@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Argue",
+        "repositoryURL": "https://github.com/interstateone/argue.git",
+        "state": {
+          "branch": null,
+          "revision": "de98d92826114ada0320faa8646fc3e8780fa1ff",
+          "version": "3.0.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
